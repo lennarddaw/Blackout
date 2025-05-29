@@ -1,5 +1,5 @@
 models/*.onnx
-app/unlabeled/
+raspberry-pi/app/unlabeled/
 __pycache__/
 *.pyc
 .env/
