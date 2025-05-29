@@ -1,18 +1,5 @@
-# Python
-__pycache__/
-*.pyc
-
-# Models & Snapshots
 models/*.onnx
 app/unlabeled/
-
-# Logs & Environment
-*.log
-env/
-venv/
-
-# Editor / System
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
+__pycache__/
+*.pyc
+.env/
