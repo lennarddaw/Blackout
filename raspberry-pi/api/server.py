@@ -14,7 +14,8 @@ from app.face_recognition import (
     preprocess_face,
     get_embedding,
     identify_face,
-    save_new_face
+    save_new_face,
+    check_for_new_face,
 )
 
 app = Flask(__name__)

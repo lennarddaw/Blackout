@@ -8,10 +8,9 @@ DB_PATH = "face_database.json"
 MODEL_PATH = "models/glintr100.onnx"
 INPUT_SIZE = (112, 112)
 
-# Lade Modell
 session = onnxruntime.InferenceSession(MODEL_PATH, providers=["CPUExecutionProvider"])
 
-# Datenbank laden oder erstellen
+
 if os.path.exists(DB_PATH):
     with open(DB_PATH, "r") as f:
         known_faces = json.load(f)
@@ -50,8 +49,15 @@ def save_new_face(name, embedding):
     with open(DB_PATH, "w") as f:
         json.dump(known_faces, f, indent=2)
 
+def check_for_new_face(name, embedding):
+    existing_face = identify_face(embedding)
+    if existing_face is None:
+        save_new_face(name, embedding)
+        return f"New face detected and saved: {name}"
+    else:
+        return f"Face already exists in database: {existing_face}"
+
 def detect_face_opencv(img):
-    # Einfacher face detector mit Haarcascades
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
     faces = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
